@@ -454,6 +454,10 @@
 <body>
   <main>
     <canvas id="particle-canvas"></canvas>
+    <div id="click-to-start" style="position:fixed; inset:0; z-index:6; display:flex; align-items:center; justify-content:center; flex-direction:column; color:#e2f8ff; font-family:'Fredoka',sans-serif; font-size:clamp(16px, 2vw, 24px); font-weight:700; letter-spacing:0.2em; text-transform:uppercase; text-shadow:0 4px 12px rgba(6,36,79,0.9); pointer-events:none; transition:opacity 800ms ease; animation:pulse-start 2s infinite ease-in-out;">
+      Click anywhere to dive
+      <style>@keyframes pulse-start { 0%, 100% { opacity: 0.7; transform: translateY(0); } 50% { opacity: 1; transform: translateY(4px); } }</style>
+    </div>
     <div class="bubbles" aria-hidden="true"></div>
     <section class="portfolio" id="portfolio-content">
       <div class="light-rays" aria-hidden="true"><i class="light-ray"></i><i class="light-ray"></i><i class="light-ray"></i></div>
@@ -905,6 +909,8 @@
     function toggleAnimation() {
       if (phase === 'dispersing' || phase === 'complete') return;
       phase = 'dispersing';
+      const prompt = document.getElementById('click-to-start');
+      if (prompt) prompt.style.opacity = '0';
       animationDuration = 700;
       animationStart = performance.now();
       particles.forEach((particle) => {
